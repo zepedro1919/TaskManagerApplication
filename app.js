@@ -21,24 +21,37 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 const Task = require('./tasks');
 
 app.post('/tasks', async (req, res) => {
-  const task = new Task({
-    name: req.body.name,
-    completed: req.body.completed
-  });
   try {
+    const { name, completed } = req.body;
+
+    // Check if task name is provided
+    if (!name) {
+      return res.status(400).json({ error: 'Task name is required' }); // Return to stop further execution
+    }
+
+    const task = new Task({ name, completed: completed || false });
     const result = await task.save();
-    res.status(201).json(result);
+
+    // Send the created task in response
+    return res.status(201).json(result);  // Use return to ensure only one response is sent
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    // Handle any errors that occurred during saving
+    return res.status(500).json({ error: error.message }); // Ensure only one response is sent
   }
 });
 
 
+
 // Get all tasks
 app.get('/tasks', async (req, res) => {
-  const tasks = await Task.find();
+  const filter = {};
+  if (req.query.completed) filter.completed = req.query.completed === 'true';
+  if (req.query.priority) filter.priority = req.query.priority;
+  
+  const tasks = await Task.find(filter);
   res.json(tasks);
 });
+
 
 
 // Get task by ID
@@ -58,7 +71,12 @@ app.put('/tasks/:id', async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(
       req.params.id,
-      { name: req.body.name, completed: req.body.completed },
+      {
+        name: req.body.name,
+        completed: req.body.completed,
+        priority: req.body.priority,
+        dueDate: req.body.dueDate
+      },
       { new: true, runValidators: true }
     );
     if (!task) return res.status(404).json({ error: 'Task not found' });

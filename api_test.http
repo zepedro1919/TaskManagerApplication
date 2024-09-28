@@ -2,8 +2,22 @@ POST http://localhost:5000/tasks
 Content-Type: application/json
 
 {
-  "name": "Test Task 1",
-  "completed": false
+  "name": "Complete project",
+  "completed": false,
+  "priority": "high",
+  "dueDate": "2024-09-30"
 }
 
+
 GET http://localhost:5000/tasks
+
+
+PUT http://localhost:5000/tasks/:id
+Content-Type: application/json
+
+{
+  "name": "Updated Task",
+  "completed": true,
+  "priority": "medium",
+  "dueDate": "2024-09-25"
+}

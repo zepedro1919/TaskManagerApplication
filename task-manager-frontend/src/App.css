@@ -1,46 +1,106 @@
+/* App.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .App {
+  width: 90%;
+  max-width: 800px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
   text-align: center;
-  margin-top: 50px;
+  color: #333;
 }
 
-input {
-  padding: 8px;
-  margin-right: 10px;
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  border: 1px solid #ccc;
 }
 
-button {
-  padding: 8px 12px;
+.task-form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+}
+
+button.Add {
+  padding: 10px;
+  background-color: darkgreen;
+  color: white;
   border: none;
   border-radius: 4px;
-  background-color: #28a745;
-  color: white;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.Delete {
+  padding: 10px;
+  background-color: darkred;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
-ul {
-  list-style-type: none;
+.task-list {
+  list-style: none;
   padding: 0;
+  margin-top: 20px;
 }
 
-li {
-  padding: 10px 0;
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-li span {
-  cursor: pointer;
-  margin-right: 15px;
+.task-item span {
+  flex: 1;
+  margin-left: 10px;
 }
 
-li button {
-  background-color: #dc3545;
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-li button:hover {
-  background-color: #c82333;
+.filter-section label {
+  margin-right: 5px;
+}
+
+@media (max-width: 600px) {
+  .App {
+    width: 100%;
+    padding: 10px;
+  }
 }
